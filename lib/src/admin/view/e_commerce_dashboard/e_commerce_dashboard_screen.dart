@@ -66,166 +66,168 @@ class _EcommerceDashboardState extends State<EcommerceDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _dataItem(),
-        // MediaQuery.of(context).size.width > 1250
-        //     ? Wrap(
-        //         spacing: 28.0,
-        //         runSpacing: 26.0,
-        //         children: [
-        //           Expanded(
-        //             child: _dataOfEcommerce('74,516', 0, 0xFFf0f0ff),
-        //           ),
-        //           Expanded(
-        //             child: _dataOfEcommerce('\$28,947', 1, 0xFFfef0f6),
-        //           ),
-        //           Expanded(
-        //             child: _dataOfEcommerce('\$8,947', 2, 0xFFe9faf5),
-        //           ),
-        //           Expanded(
-        //             child: _dataOfEcommerce('45.2 K', 3, 0xFFeaf3ff),
-        //           ),
-        //         ],
-        //       )
-        //     : MediaQuery.of(context).size.width > 550
-        //         ? Column(
-        //             children: [
-        //               Row(
-        //                 children: [
-        //                   Expanded(
-        //                     child: _dataOfEcommerce('74,516', 0, 0xFFf0f0ff),
-        //                   ),
-        //                   const SizedBox(
-        //                     width: 28,
-        //                   ),
-        //                   Expanded(
-        //                     child: _dataOfEcommerce('\$28,947', 1, 0xFFfef0f6),
-        //                   ),
-        //                 ],
-        //               ),
-        //               const SizedBox(
-        //                 height: 26.0,
-        //               ),
-        //               Row(
-        //                 children: [
-        //                   Expanded(
-        //                     child: _dataOfEcommerce('\$8,947', 2, 0xFFe9faf5),
-        //                   ),
-        //                   const SizedBox(
-        //                     width: 28,
-        //                   ),
-        //                   Expanded(
-        //                     child: _dataOfEcommerce('45.2 K', 3, 0xFFeaf3ff),
-        //                   ),
-        //                 ],
-        //               )
-        //             ],
-        //           )
-        //         : Column(
-        //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //             children: [
-        //               SizedBox(
-        //                 width: double.infinity,
-        //                 child: _dataOfEcommerce('74,516', 0, 0xFFf0f0ff),
-        //               ),
-        //               const SizedBox(
-        //                 height: 26.0,
-        //               ),
-        //               SizedBox(
-        //                 width: double.infinity,
-        //                 child: _dataOfEcommerce('\$28,947', 1, 0xFFfef0f6),
-        //               ),
-        //               const SizedBox(
-        //                 height: 26.0,
-        //               ),
-        //               SizedBox(
-        //                 width: double.infinity,
-        //                 child: _dataOfEcommerce('\$8,947', 2, 0xFFe9faf5),
-        //               ),
-        //               const SizedBox(
-        //                 height: 26.0,
-        //               ),
-        //               SizedBox(
-        //                 width: double.infinity,
-        //                 child: _dataOfEcommerce('45.2 K', 3, 0xFFeaf3ff),
-        //               ),
-        //               const SizedBox(
-        //                 height: 26.0,
-        //               ),
-        //             ],
-        //           ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _dataItem(),
+          // MediaQuery.of(context).size.width > 1250
+          //     ? Wrap(
+          //         spacing: 28.0,
+          //         runSpacing: 26.0,
+          //         children: [
+          //           Expanded(
+          //             child: _dataOfEcommerce('74,516', 0, 0xFFf0f0ff),
+          //           ),
+          //           Expanded(
+          //             child: _dataOfEcommerce('\$28,947', 1, 0xFFfef0f6),
+          //           ),
+          //           Expanded(
+          //             child: _dataOfEcommerce('\$8,947', 2, 0xFFe9faf5),
+          //           ),
+          //           Expanded(
+          //             child: _dataOfEcommerce('45.2 K', 3, 0xFFeaf3ff),
+          //           ),
+          //         ],
+          //       )
+          //     : MediaQuery.of(context).size.width > 550
+          //         ? Column(
+          //             children: [
+          //               Row(
+          //                 children: [
+          //                   Expanded(
+          //                     child: _dataOfEcommerce('74,516', 0, 0xFFf0f0ff),
+          //                   ),
+          //                   const SizedBox(
+          //                     width: 28,
+          //                   ),
+          //                   Expanded(
+          //                     child: _dataOfEcommerce('\$28,947', 1, 0xFFfef0f6),
+          //                   ),
+          //                 ],
+          //               ),
+          //               const SizedBox(
+          //                 height: 26.0,
+          //               ),
+          //               Row(
+          //                 children: [
+          //                   Expanded(
+          //                     child: _dataOfEcommerce('\$8,947', 2, 0xFFe9faf5),
+          //                   ),
+          //                   const SizedBox(
+          //                     width: 28,
+          //                   ),
+          //                   Expanded(
+          //                     child: _dataOfEcommerce('45.2 K', 3, 0xFFeaf3ff),
+          //                   ),
+          //                 ],
+          //               )
+          //             ],
+          //           )
+          //         : Column(
+          //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //             children: [
+          //               SizedBox(
+          //                 width: double.infinity,
+          //                 child: _dataOfEcommerce('74,516', 0, 0xFFf0f0ff),
+          //               ),
+          //               const SizedBox(
+          //                 height: 26.0,
+          //               ),
+          //               SizedBox(
+          //                 width: double.infinity,
+          //                 child: _dataOfEcommerce('\$28,947', 1, 0xFFfef0f6),
+          //               ),
+          //               const SizedBox(
+          //                 height: 26.0,
+          //               ),
+          //               SizedBox(
+          //                 width: double.infinity,
+          //                 child: _dataOfEcommerce('\$8,947', 2, 0xFFe9faf5),
+          //               ),
+          //               const SizedBox(
+          //                 height: 26.0,
+          //               ),
+          //               SizedBox(
+          //                 width: double.infinity,
+          //                 child: _dataOfEcommerce('45.2 K', 3, 0xFFeaf3ff),
+          //               ),
+          //               const SizedBox(
+          //                 height: 26.0,
+          //               ),
+          //             ],
+          //           ),
 
-        FxBox.h24,
-        Responsive.isWeb(context)
-            ? Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Expanded(
-                    child: VenderSalesReport(),
-                  ),
-                  FxBox.w24,
-                  Expanded(
-                    child: _reachdetails(),
-                    //  Column(
+          FxBox.h24,
+          Responsive.isWeb(context)
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Expanded(
+                      child: VenderSalesReport(),
+                    ),
+                    FxBox.w24,
+                    Expanded(
+                      child: _reachdetails(),
+                      //  Column(
+                      //   children: [
+                      //     Row(
+                      //       children: [
+                      //         Expanded(child: newUserBox()),
+                      //         FxBox.w24,
+                      //         Expanded(child: newsubcriptionBox()),
+                      //       ],
+                      //     ),
+                      //     FxBox.h24,
+                      //     totalsubcriptionBox(),
+                      //   ],
+                      // ),
+                    ),
+                    FxBox.w24,
+                    const Expanded(
+                      //flex: 2,
+                      child: Salesanalytics(),
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    const VenderSalesReport(),
+                    FxBox.h24,
+                    // Row(
                     //   children: [
-                    //     Row(
-                    //       children: [
-                    //         Expanded(child: newUserBox()),
-                    //         FxBox.w24,
-                    //         Expanded(child: newsubcriptionBox()),
-                    //       ],
-                    //     ),
-                    //     FxBox.h24,
-                    //     totalsubcriptionBox(),
+                    //     Expanded(child: newUserBox()),
+                    //     FxBox.w24,
+                    //     Expanded(child: newsubcriptionBox()),
                     //   ],
                     // ),
-                  ),
-                  FxBox.w24,
-                   Expanded(
-                    //flex: 2,
-                    child: Salesanalytics(),
-                  ),
-                ],
-              )
-            : Column(
-                children: [
-                  const VenderSalesReport(),
-                  FxBox.h24,
-                  // Row(
-                  //   children: [
-                  //     Expanded(child: newUserBox()),
-                  //     FxBox.w24,
-                  //     Expanded(child: newsubcriptionBox()),
-                  //   ],
-                  // ),
 
-                  // FxBox.h24,
-                  // totalsubcriptionBox(),
-                  _reachdetails(),
-                  FxBox.h24,
-                  const Salesanalytics(),
-                ],
-              ),
-        FxBox.h24,
-        Responsive.isWeb(context)
-            ? Row(
-                children: [
-                  const Expanded(child: GlobalSale()),
-                  FxBox.w24,
-                  Expanded(child: _overViewChart()),
-                ],
-              )
-            : Column(
-                children: [
-                  const GlobalSale(),
-                  FxBox.h24,
-                  _overViewChart(),
-                ],
-              ),
-        FxBox.h24,
-        const VenderTransaction(),
-      ],
+                    // FxBox.h24,
+                    // totalsubcriptionBox(),
+                    _reachdetails(),
+                    FxBox.h24,
+                    const Salesanalytics(),
+                  ],
+                ),
+          FxBox.h24,
+          Responsive.isWeb(context)
+              ? Row(
+                  children: [
+                    const Expanded(child: GlobalSale()),
+                    FxBox.w24,
+                    Expanded(child: _overViewChart()),
+                  ],
+                )
+              : Column(
+                  children: [
+                    const GlobalSale(),
+                    FxBox.h24,
+                    _overViewChart(),
+                  ],
+                ),
+          FxBox.h24,
+          const VenderTransaction(),
+        ],
+      ),
     );
   }
 

@@ -71,103 +71,109 @@ class _ProductsScreenState extends State<ProductsScreen> {
   RangeValues rangeValue = const RangeValues(0, 500);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        !Responsive.isMobile(context) ? const SizedBox.shrink() : _filterUi(),
-        FxBox.h16,
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            isFilter
-                ? _filterList.isEmpty
-                    ? const Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: CustomText(title: 'No data found'),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Expanded(
-                        child: GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            itemCount: isFilter
-                                ? _filterList.length
-                                : productList.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: Responsive.isMobile(context)
-                                  ? 1
-                                  : Responsive.isTablet(context)
-                                      ? 2
-                                      : islg(context)
-                                          ? 2
-                                          : MediaQuery.of(context).size.width ==
-                                                      1303 ||
-                                                  MediaQuery.of(context)
-                                                          .size
-                                                          .width <
-                                                      1310
-                                              ? 3
-                                              : isxl(context)
-                                                  ? 4
-                                                  : 1,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20,
-                              mainAxisExtent:
-                                  Responsive.isWeb(context) ? 390 : 426,
-                            ),
-                            itemBuilder: (context, index) {
-                              return _cardUI(index);
-                            }),
-                      )
-                : Expanded(
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemCount:
-                            isFilter ? _filterList.length : productList.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: Responsive.isMobile(context)
-                              ? 1
-                              : Responsive.isTablet(context)
-                                  ? 2
-                                  : islg(context)
-                                      ? 2
-                                      : MediaQuery.of(context).size.width ==
-                                                  1303 ||
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width <
-                                                  1310
-                                          ? 3
-                                          : isxl(context)
-                                              ? 4
-                                              : 1,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20,
-                          mainAxisExtent: Responsive.isWeb(context)
-                              ? 390
-                              : Responsive.isMobile(context)
-                                  ? 380
-                                  : 426,
-                        ),
-                        itemBuilder: (context, index) {
-                          return _cardUI(index);
-                        }),
-                  ),
-            FxBox.w16,
-            Responsive.isMobile(context)
-                ? const SizedBox.shrink()
-                : _filterUi(),
-          ],
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          !Responsive.isMobile(context) ? const SizedBox.shrink() : _filterUi(),
+          FxBox.h16,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              isFilter
+                  ? _filterList.isEmpty
+                      ? const Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: CustomText(title: 'No data found'),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Expanded(
+                          child: GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              itemCount: isFilter
+                                  ? _filterList.length
+                                  : productList.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: Responsive.isMobile(context)
+                                    ? 1
+                                    : Responsive.isTablet(context)
+                                        ? 2
+                                        : islg(context)
+                                            ? 2
+                                            : MediaQuery.of(context)
+                                                            .size
+                                                            .width ==
+                                                        1303 ||
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width <
+                                                        1310
+                                                ? 3
+                                                : isxl(context)
+                                                    ? 4
+                                                    : 1,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20,
+                                mainAxisExtent:
+                                    Responsive.isWeb(context) ? 390 : 426,
+                              ),
+                              itemBuilder: (context, index) {
+                                return _cardUI(index);
+                              }),
+                        )
+                  : Expanded(
+                      child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemCount: isFilter
+                              ? _filterList.length
+                              : productList.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: Responsive.isMobile(context)
+                                ? 1
+                                : Responsive.isTablet(context)
+                                    ? 2
+                                    : islg(context)
+                                        ? 2
+                                        : MediaQuery.of(context).size.width ==
+                                                    1303 ||
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width <
+                                                    1310
+                                            ? 3
+                                            : isxl(context)
+                                                ? 4
+                                                : 1,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                            mainAxisExtent: Responsive.isWeb(context)
+                                ? 390
+                                : Responsive.isMobile(context)
+                                    ? 380
+                                    : 426,
+                          ),
+                          itemBuilder: (context, index) {
+                            return _cardUI(index);
+                          }),
+                    ),
+              FxBox.w16,
+              Responsive.isMobile(context)
+                  ? const SizedBox.shrink()
+                  : _filterUi(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

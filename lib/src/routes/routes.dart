@@ -13,10 +13,10 @@ class AppRouter extends $AppRouter {
   final List<AutoRoute> routes = [
     AutoRoute(
       path: '/',
-      page: EcommerceDashboard.page,
+      page: EcommerseAdminSideBar.page,
       children: [
         AutoRoute(path: 'AdminDashboard', page: EcommerceDashboard.page),
-        AutoRoute(path: 'products', page: ProductsScreen.page),
+        AutoRoute(path: 'productAdd', page: ProductAdd.page),
         AutoRoute(path: 'products/products-detail', page: ProductDetailScreen.page),
         AutoRoute(path: 'category', page: CategoryScreen.page),
         AutoRoute(path: 'category/sub-category', page: SubCategoryScreen.page),
