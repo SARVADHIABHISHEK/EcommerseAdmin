@@ -26,6 +26,7 @@ class _EcommerseAdminDrawerState extends State<EcommerseAdminDrawer>
   final List<String> _ecommerseAdmin = [
     'Dashboard',
     'Product Add',
+    'Barnd Add',
     Strings.category,
     Strings.vendor,
     Strings.customer,

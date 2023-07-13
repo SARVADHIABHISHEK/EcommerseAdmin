@@ -1,6 +1,5 @@
 import 'package:ecommerse_admin/src/admin/constant/allconst.dart';
 import 'package:ecommerse_admin/src/admin/utils/adminResponsive.dart';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:ecommerse_admin/src/admin/widget/svg_icon.dart';
 import 'package:ecommerse_admin/src/routes/routes.gr.dart';
@@ -24,6 +23,7 @@ class _EcommerseAdminSideBarState extends State<EcommerseAdminSideBar> {
   List<PageRouteInfo<dynamic>> routes = [
     const EcommerceDashboard(),
     const ProductAdd(),
+     const BrandAdd(),
     const CategoryScreen(),
     const VenderScreen(),
     const CustomerScreen(),
@@ -32,6 +32,7 @@ class _EcommerseAdminSideBarState extends State<EcommerseAdminSideBar> {
     const SubScriptionScreen(),
     const CouponsScreen(),
     const ReturnConditionScreen(),
+   
   ];
   final List<Map<String, dynamic>> _items = [
     {

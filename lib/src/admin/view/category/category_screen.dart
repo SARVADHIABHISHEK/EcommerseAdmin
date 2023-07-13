@@ -1,11 +1,9 @@
 import 'package:ecommerse_admin/src/admin/constant/color.dart';
-import 'package:ecommerse_admin/src/admin/constant/const.dart';
 import 'package:ecommerse_admin/src/admin/constant/icons.dart';
 import 'package:ecommerse_admin/src/admin/constant/image.dart';
 import 'package:ecommerse_admin/src/admin/constant/text.dart';
 import 'package:ecommerse_admin/src/admin/constant/theme.dart';
 import 'package:ecommerse_admin/src/admin/utils/localizaion/multi_language.dart';
-
 import 'package:ecommerse_admin/src/admin/widget/datatable.dart';
 import 'package:ecommerse_admin/src/admin/widget/svg_icon.dart';
 import 'package:ecommerse_admin/src/admin/widget/textformfield.dart';
@@ -31,6 +29,32 @@ class _CategoryScreenState extends State<CategoryScreen> {
     'Active',
     'Deactive',
   ];
+
+  final List<CategoryModel> _tempCategorys = [
+    CategoryModel(
+        id: "1", image: Images.men, categoryName: "Men", status: "acive"),
+    CategoryModel(
+        id: "2",
+        image: Images.women,
+        categoryName: "Women",
+        status: "Deactive"),
+    CategoryModel(
+        id: "3",
+        image: Images.electronic,
+        categoryName: "Accessories",
+        status: "active"),
+    CategoryModel(
+        id: "4",
+        image: Images.homeAndKitchen,
+        categoryName: "Home And Kitchen",
+        status: "Deactive"),
+    CategoryModel(
+        id: "5",
+        image: Images.entertainment,
+        categoryName: "Entertainment",
+        status: "Deactive"),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -113,71 +137,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                     ],
                     rows: [
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('1')),
-                          DataCell(_tableRowImage(Images.men)),
-                          DataCell(_tableHeader('Men')),
-                          DataCell(
-                              _statusBox(ColorConst.successDark, 'Active')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('2')),
-                          DataCell(_tableRowImage(Images.women)),
-                          DataCell(_tableHeader('Women')),
-                          DataCell(
-                              _statusBox(ColorConst.warningDark, 'Deactive')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('3')),
-                          DataCell(_tableRowImage(Images.electronic)),
-                          DataCell(_tableHeader('Accessories')),
-                          DataCell(
-                              _statusBox(ColorConst.successDark, 'Active')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('4')),
-                          DataCell(_tableRowImage(Images.homeAndKitchen)),
-                          DataCell(_tableHeader('Home And Kitchen')),
-                          DataCell(
-                              _statusBox(ColorConst.successDark, 'Active')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('5')),
-                          DataCell(_tableRowImage(Images.entertainment)),
-                          DataCell(_tableHeader('Entertainment')),
-                          DataCell(
-                              _statusBox(ColorConst.successDark, 'Active')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
+                      for (int i = 0; i < _tempCategorys.length; i++) ...[
+                        DataRow(
+                          // onSelectChanged: (value) {
+                          //   // autoTabRouter!.setActiveIndex(41);
+                          // },
+                          cells: [
+                            DataCell(
+                                _tableHeader(_tempCategorys[i].id.toString())),
+                            DataCell(_tableRowImage(
+                                _tempCategorys[i].image.toString())),
+                            DataCell(_tableHeader(
+                                _tempCategorys[i].categoryName.toString())),
+                            DataCell(_statusBox(ColorConst.successDark,
+                                _tempCategorys[i].status.toString())),
+                            DataCell(_editButton(i)),
+                          ],
+                        ),
+                      ]
                     ],
                   ),
                 ),
@@ -216,7 +193,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  Widget _editButton() {
+  Widget _editButton(int index) {
     return Row(
       children: [
         IconButton(
@@ -229,7 +206,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
           icon: const Icon(Icons.mode_edit_rounded),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _tempCategorys.removeAt(index);
+            setState(() {});
+          },
           icon: Icon(
             Icons.delete,
             color: ColorConst.errorDark,
@@ -307,6 +287,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
         FxButton(
           height: 50,
           onPressed: () async {
+            _tempCategorys.add(
+              CategoryModel(
+                  id: "6",
+                  image: Images.men,
+                  categoryName: _categoryController.text,
+                  status: defaultValue),
+            );
             isShow = !isShow;
             currentImage = null;
             _categoryController.text = '';
@@ -355,5 +342,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
         text: 'New Category',
       ),
     );
+  }
+}
+
+class CategoryModel {
+  String? id;
+  String? image;
+  String? categoryName;
+  String? status;
+
+  CategoryModel({this.id, this.image, this.categoryName, this.status});
+
+  CategoryModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    image = json['image'];
+    categoryName = json['category_name'];
+    status = json['status'];
   }
 }
