@@ -27,6 +27,7 @@ class _EcommerseAdminDrawerState extends State<EcommerseAdminDrawer>
     'Dashboard',
     'Product Add',
     'Barnd Add',
+    'Manage Banner',
     'Add Offer On Category',
     Strings.category,
     Strings.vendor,

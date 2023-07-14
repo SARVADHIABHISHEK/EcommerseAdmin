@@ -25,6 +25,7 @@ class _EcommerseAdminSideBarState extends State<EcommerseAdminSideBar> {
     const EcommerceDashboard(),
     const ProductAdd(),
     const BrandAdd(),
+    const BannerView(),
     const OfferOnBrands(),
     const CategoryScreen(),
     const VenderScreen(),

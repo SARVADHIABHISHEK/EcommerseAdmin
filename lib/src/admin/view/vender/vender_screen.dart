@@ -2,6 +2,7 @@ import 'package:ecommerse_admin/src/admin/constant/color.dart';
 import 'package:ecommerse_admin/src/admin/constant/const.dart';
 import 'package:ecommerse_admin/src/admin/constant/icons.dart';
 import 'package:ecommerse_admin/src/admin/constant/image.dart';
+import 'package:ecommerse_admin/src/admin/constant/string.dart';
 import 'package:ecommerse_admin/src/admin/constant/text.dart';
 import 'package:ecommerse_admin/src/admin/constant/theme.dart';
 import 'package:ecommerse_admin/src/admin/utils/localizaion/multi_language.dart';
@@ -93,10 +94,6 @@ class _VenderScreenState extends State<VenderScreen> {
         children: [
           _addNewVender(),
           FxBox.h16,
-          if (isShow) ...[
-            _createVender(),
-            FxBox.h16,
-          ],
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.2,
             child: CustomTextField(
@@ -307,30 +304,175 @@ class _VenderScreenState extends State<VenderScreen> {
     );
   }
 
-  Widget _createVender() {
-    return Row(
+  // Widget _createVender() {
+  //   return Row(
+  //     children: [
+  //       Column(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         children: [
+  //           GestureDetector(
+  //             onTap: () async {},
+  //             child: CircleAvatar(
+  //                 radius: 36,
+  //                 backgroundColor: ColorConst.primary.withOpacity(0.2),
+  //                 child: const SvgIcon(
+  //                   icon: IconlyBroken.camera,
+  //                   size: 26,
+  //                 )),
+  //           ),
+  //         ],
+  //       ),
+  //       FxBox.w24,
+  //       Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           SizedBox(
+  //             width: MediaQuery.of(context).size.width * 0.2,
+  //             child: CustomTextField(
+  //               controller: _venderName,
+  //               hintText: 'Enter Name',
+  //               border:
+  //                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+  //             ),
+  //           ),
+  //           FxBox.h24,
+  //           SizedBox(
+  //             width: MediaQuery.of(context).size.width * 0.2,
+  //             child: CustomTextField(
+  //               controller: _venderEmail,
+  //               hintText: 'Enter Email',
+  //               border:
+  //                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+  //             ),
+  //           ),
+  //           FxBox.h24,
+  //           SizedBox(
+  //             width: MediaQuery.of(context).size.width * 0.2,
+  //             child: CustomTextField(
+  //               controller: _venderNumber,
+  //               hintText: 'Enter Number',
+  //               border:
+  //                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+  //             ),
+  //           ),
+  //           FxBox.h24,
+  //           Container(
+  //             height: 40,
+  //             padding: const EdgeInsets.symmetric(horizontal: 12),
+  //             decoration: BoxDecoration(
+  //               border: Border.all(color: Colors.grey),
+  //               borderRadius: BorderRadius.circular(10),
+  //             ),
+  //             child: DropdownButton(
+  //               value: defaultValue,
+  //               underline: const SizedBox.shrink(),
+  //               icon: const Icon(Icons.keyboard_arrow_down),
+  //               items: _statusList.map((String items) {
+  //                 return DropdownMenuItem(
+  //                   value: items,
+  //                   child: Text(items),
+  //                 );
+  //               }).toList(),
+  //               onChanged: (String? newValue) {
+  //                 setState(() {
+  //                   defaultValue = newValue!;
+  //                 });
+  //               },
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       const Spacer(),
+  //       FxButton(
+  //         height: 50,
+  //         onPressed: () async {
+  //           isShow = !isShow;
+
+  //           setState(() {});
+  //         },
+  //         fullWidth: false,
+  //         color: ColorConst.primary,
+  //         minWidth: MediaQuery.of(context).size.width / 7,
+  //         text: 'Add Vendor',
+  //         textColor: ColorConst.white,
+  //       ),
+  //       FxBox.w24,
+  //       FxButton(
+  //         height: 50,
+  //         minWidth: 50,
+  //         hoverColor: ColorConst.error.withOpacity(0.1),
+  //         onPressed: () {
+  //           isShow = !isShow;
+
+  //           setState(() {});
+  //         },
+  //         color: ColorConst.error.withOpacity(0.4),
+  //         icon: const SvgIcon(
+  //           icon: IconlyBroken.closeSquare,
+  //           color: ColorConst.white,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  Widget _addNewVender() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: FxButton(
+        height: 50,
+        textColor: ColorConst.white,
+        color: ColorConst.primary,
+        fullWidth: false,
+        minWidth: MediaQuery.of(context).size.width / 7,
+        onPressed: () {
+          FxModal.showModel(
+            context: context,
+            title: 'Add Vendor',
+            content: _productForm(),
+            trailingIcon: const SvgIcon(icon: IconlyBroken.closeSquare),
+            actions: [
+              FxButton(
+                onPressed: () => Navigator.pop(context),
+                text: Strings.close,
+                buttonType: ButtonType.secondary,
+              ),
+            ],
+            modelType: ModalType.normal,
+          );
+        },
+        // onPressed: () {
+        //   _productForm();
+        //   // isShow = !isShow;
+        //   // setState(() {});
+        // },
+        text: 'New Vendor',
+      ),
+    );
+  }
+
+  Widget _productForm() {
+    return Column(
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () async {},
-              child: CircleAvatar(
-                  radius: 36,
-                  backgroundColor: ColorConst.primary.withOpacity(0.2),
-                  child: const SvgIcon(
-                    icon: IconlyBroken.camera,
-                    size: 26,
-                  )),
+        Align(
+          alignment: Alignment.center,
+          child: GestureDetector(
+            onTap: () async {},
+            child: CircleAvatar(
+              radius: 36,
+              backgroundColor: ColorConst.primary.withOpacity(0.2),
+              child: const SvgIcon(
+                icon: IconlyBroken.camera,
+                size: 26,
+              ),
             ),
-          ],
+          ),
         ),
-        FxBox.w24,
+        FxBox.h10,
         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.2,
               child: CustomTextField(
                 controller: _venderName,
                 hintText: 'Enter Name',
@@ -340,7 +482,6 @@ class _VenderScreenState extends State<VenderScreen> {
             ),
             FxBox.h24,
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.2,
               child: CustomTextField(
                 controller: _venderEmail,
                 hintText: 'Enter Email',
@@ -350,7 +491,6 @@ class _VenderScreenState extends State<VenderScreen> {
             ),
             FxBox.h24,
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.2,
               child: CustomTextField(
                 controller: _venderNumber,
                 hintText: 'Enter Number',
@@ -361,6 +501,7 @@ class _VenderScreenState extends State<VenderScreen> {
             FxBox.h24,
             Container(
               height: 40,
+              width: MediaQuery.sizeOf(context).width,
               padding: const EdgeInsets.symmetric(horizontal: 12),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
@@ -377,63 +518,29 @@ class _VenderScreenState extends State<VenderScreen> {
                   );
                 }).toList(),
                 onChanged: (String? newValue) {
-                  setState(() {
-                    defaultValue = newValue!;
-                  });
+                  setState(
+                    () {
+                      defaultValue = newValue!;
+                    },
+                  );
                 },
               ),
             ),
+            FxBox.h10,
+            FxButton(
+              height: 50,
+              onPressed: () async {
+                Navigator.pop(context);
+              },
+              fullWidth: false,
+              color: ColorConst.primary,
+              minWidth: MediaQuery.of(context).size.width / 7,
+              text: 'Add Vendor',
+              textColor: ColorConst.white,
+            ),
           ],
         ),
-        const Spacer(),
-        FxButton(
-          height: 50,
-          onPressed: () async {
-            isShow = !isShow;
-
-            setState(() {});
-          },
-          fullWidth: false,
-          color: ColorConst.primary,
-          minWidth: MediaQuery.of(context).size.width / 7,
-          text: 'Add Vendor',
-          textColor: ColorConst.white,
-        ),
-        FxBox.w24,
-        FxButton(
-          height: 50,
-          minWidth: 50,
-          hoverColor: ColorConst.error.withOpacity(0.1),
-          onPressed: () {
-            isShow = !isShow;
-
-            setState(() {});
-          },
-          color: ColorConst.error.withOpacity(0.4),
-          icon: const SvgIcon(
-            icon: IconlyBroken.closeSquare,
-            color: ColorConst.white,
-          ),
-        ),
       ],
-    );
-  }
-
-  Widget _addNewVender() {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: FxButton(
-        height: 50,
-        textColor: ColorConst.white,
-        color: ColorConst.primary,
-        fullWidth: false,
-        minWidth: MediaQuery.of(context).size.width / 7,
-        onPressed: () {
-          isShow = !isShow;
-          setState(() {});
-        },
-        text: 'New Vendor',
-      ),
     );
   }
 }

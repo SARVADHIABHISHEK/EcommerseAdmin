@@ -39,7 +39,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(create: (context) => themeModeBloc),
         BlocProvider(create: (context) => localizationBloc),
-        BlocProvider(create: (context) => FontBloc()),
+        BlocProvider(
+          create: (context) => FontBloc(),
+        ),
       ],
       child: BlocBuilder<LocalizationBloc, LocalizationState>(
         builder: (context, state) {

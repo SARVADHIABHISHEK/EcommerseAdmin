@@ -2,7 +2,6 @@ import 'package:ecommerse_admin/src/admin/constant/color.dart';
 import 'package:ecommerse_admin/src/admin/constant/enum.dart';
 import 'package:ecommerse_admin/src/admin/constant/text.dart';
 import 'package:ecommerse_admin/src/admin/utils/charts/chartsutils.dart';
-// import 'package:ecommerse_admin/src/admin/utils/charts/chartsutils.dart';
 import 'package:ecommerse_admin/src/admin/utils/localizaion/multi_language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
@@ -15,52 +14,6 @@ class VenderSalesReport extends StatefulWidget {
 }
 
 class _VenderSalesReportState extends State<VenderSalesReport> {
-  // final List<Map<String, dynamic>> _chartList = [
-  //   {
-  //     'bedgeTitle': 'Desk',
-  //     'badgeColor': ColorConst.primary,
-  //     'title': Strings.desktop,
-  //     'percentage': '35.5%',
-  //   },
-  //   {
-  //     'bedgeTitle': 'Mob',
-  //     'badgeColor': ColorConst.chartColorGreen,
-  //     'title': Strings.mobile,
-  //     'percentage': '30.0%',
-  //   },
-  //   {
-  //     'bedgeTitle': 'Tab',
-  //     'badgeColor': ColorConst.chartColorYellow,
-  //     'title': Strings.tablets,
-  //     'percentage': '44.5%',
-  //   },
-  // ];
-
-  // List<PieChartSectionData> showingSections() {
-  //   return List.generate(3, (i) {
-  //     double radius = 16.0;
-  //     switch (i) {
-  //       case 0:
-  //         return PieChartSectionData(
-  //           color: ColorConst.primary,
-  //           radius: radius,
-  //         );
-  //       case 1:
-  //         return PieChartSectionData(
-  //           color: ColorConst.chartColorGreen,
-  //           radius: radius,
-  //         );
-  //       case 2:
-  //         return PieChartSectionData(
-  //           color: ColorConst.chartColorYellow,
-  //           radius: radius,
-  //         );
-  //       default:
-  //         throw Error();
-  //     }
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -115,9 +68,9 @@ class _VenderSalesReportState extends State<VenderSalesReport> {
   }
 
   Widget _dateAndPrice() {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: const [
+      children: [
         Text(
           'November 01 - November 30',
           softWrap: true,

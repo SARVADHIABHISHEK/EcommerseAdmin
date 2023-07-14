@@ -33,12 +33,14 @@ class _ProductAddState extends State<ProductAdd> {
   final TextEditingController _expriryDate = TextEditingController();
   final TextEditingController _unitStock = TextEditingController();
   final ValueNotifier<String> _categorySelected = ValueNotifier('');
+  final ValueNotifier<String> _venderSelected = ValueNotifier('');
 
   final List<ProductModel> _productItem = [
     ProductModel(
       id: 1,
       product: 'i phone 14',
       category: 'mobile',
+      vendor: 'Mick M.',
       expiryDate: '02/10/2024',
       unit: 2,
     ),
@@ -46,9 +48,17 @@ class _ProductAddState extends State<ProductAdd> {
       id: 2,
       product: 'samsung galaxy',
       category: 'mobile',
+      vendor: 'Nick G.',
       expiryDate: '02/10/2024',
       unit: 10,
     ),
+  ];
+
+  final List<String> _vendorName = [
+    'Marry k.',
+    'Mick M',
+    'Nick G.',
+    'Margo Mirz'
   ];
 
   @override
@@ -86,6 +96,7 @@ class _ProductAddState extends State<ProductAdd> {
                                   id: 3,
                                   product: _productName.text,
                                   category: value,
+                                  vendor: _venderSelected.value,
                                   expiryDate: _expriryDate.text,
                                   unit: int.parse(_unitStock.text),
                                 ),
@@ -170,6 +181,7 @@ class _ProductAddState extends State<ProductAdd> {
       languageModel.eCommerceAdmin.id,
       languageModel.eCommerceAdmin.productName,
       languageModel.eCommerceAdmin.category,
+      "Vendor",
       languageModel.eCommerceAdmin.expiryDate,
       languageModel.eCommerceAdmin.unit,
       ''
@@ -193,6 +205,7 @@ class _ProductAddState extends State<ProductAdd> {
           cells: [
             DataCell(Text(_productItem[i].id.toString())),
             DataCell(Text(_productItem[i].product)),
+            DataCell(Text(_productItem[i].category)),
             DataCell(Text(_productItem[i].category)),
             DataCell(Text(_productItem[i].expiryDate)),
             DataCell(
@@ -227,31 +240,25 @@ class _ProductAddState extends State<ProductAdd> {
     ];
   }
 
-  // Widget _emptyView() {
-  //   return Column(
-  //     mainAxisSize: MainAxisSize.min,
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       const Icon(
-  //         Icons.cloud_upload_sharp,
-  //         size: 60,
-  //         color: Colors.grey,
-  //       ),
-  //       FxBox.h20,
-  //       const Text(
-  //         "Drop files here or click to upload.",
-  //         textAlign: TextAlign.center,
-  //         style: TextStyle(
-  //             fontWeight: FontWeight.w600, fontSize: 22, color: Colors.grey),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget _productForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Align(
+          alignment: Alignment.center,
+          child: GestureDetector(
+            onTap: () async {},
+            child: CircleAvatar(
+              radius: 36,
+              backgroundColor: ColorConst.primary.withOpacity(0.2),
+              child: const SvgIcon(
+                icon: IconlyBroken.camera,
+                size: 26,
+              ),
+            ),
+          ),
+        ),
+        FxBox.h10,
         _formTitle(languageModel.eCommerceAdmin.productName),
         FxBox.h6,
         CustomTextField(
@@ -282,238 +289,13 @@ class _ProductAddState extends State<ProductAdd> {
         FxBox.h6,
         _categoryDropDown(),
         FxBox.h16,
+        _formTitle("Select Vendor"),
+        _venderDropDown(),
+        FxBox.h16,
         _expiryRow(),
       ],
     );
   }
-
-  // Widget _pickDropContainer(Size size) {
-  //   return GestureDetector(
-  //     onTap: () async {
-  //       FilePickerResult? file =
-  //           await FilePicker.platform.pickFiles(allowMultiple: false);
-  //       if (file != null) {
-  //         XFile files = XFile(file.files.first.path!);
-  //         _dropFile(files);
-  //       }
-  //     },
-  //     child: Container(
-  //       margin: Responsive.isWeb(context)
-  //           ? const EdgeInsets.all(24.0)
-  //           : EdgeInsets.zero,
-  //       height: size.height * 0.30,
-  //       width: double.infinity,
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(12.0),
-  //         color: Theme.of(context).brightness == Brightness.dark
-  //             ? Colors.black
-  //             : Colors.white,
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Theme.of(context).brightness == Brightness.dark
-  //                 ? Colors.white.withOpacity(0.4)
-  //                 : Colors.black.withOpacity(0.1),
-  //             spreadRadius: 0.0,
-  //             blurRadius: 3.0,
-  //             // offset: const Offset(5.0, 5.0),
-  //           ),
-  //         ],
-  //       ),
-  //       child: BlocBuilder<FormUploadFileBloc, FormUploadFileState>(
-  //         builder: (context, state) {
-  //           return Stack(
-  //             alignment: Alignment.center,
-  //             clipBehavior: Clip.antiAlias,
-  //             children: [
-  //               DropTarget(
-  //                 // operation: DragOperation.copy,
-  //                 // onCreated: (controller) =>
-  //                 //     _controller = controller,
-  //                 // onLoaded: () {},
-  //                 // onHover: () {},
-  //                 // onLeave: () {},
-  //                 // onDropMultiple: (value) async {
-  //                 //   _dropFile(value!);
-  //                 // },
-  //                 child: SingleChildScrollView(
-  //                   controller: ScrollController(),
-  //                   child: state.when(
-  //                     initial: () => _emptyView(),
-  //                     fileSuccess: (filesList) => filesList.isEmpty
-  //                         ? _emptyView()
-  //                         : _hasDataView(filesList),
-  //                   ),
-  //                 ),
-  //                 onDragDone: (details) {
-  //                   _dropFile(details.files.first);
-  //                 },
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget _hasDataView(List<dynamic> fileData) {
-  //   return Wrap(
-  //     runSpacing: 30.0,
-  //     spacing: 30.0,
-  //     children: fileData.map(
-  //       (e) {
-  //         return FutureBuilder<Map<String, dynamic>>(
-  //           future: _fileData(e),
-  //           builder: (context, snapshot) {
-  //             if (!snapshot.hasData) {
-  //               return FxBox.shrink;
-  //             }
-  //             final size = snapshot.data!['size'];
-  //             final fileType = snapshot.data!['mime'];
-  //             final isImage = fileType!.startsWith('image') ? true : false;
-  //             return FxHover(builder: (isHover) {
-  //               return Stack(
-  //                 clipBehavior: Clip.none,
-  //                 children: [
-  //                   Container(
-  //                     height: 120,
-  //                     width: 120,
-  //                     decoration: BoxDecoration(
-  //                       image: isImage
-  //                           ? DecorationImage(
-  //                               image: MemoryImage(snapshot.data!['bytes']),
-  //                               fit: BoxFit.cover,
-  //                             )
-  //                           : null,
-  //                       color: isDark
-  //                           ? ColorConst.lightFontColor
-  //                           : ColorConst.file,
-  //                       borderRadius: BorderRadius.circular(20.0),
-  //                     ),
-  //                     child: isImage
-  //                         ? ClipRRect(
-  //                             borderRadius: BorderRadius.circular(20.0),
-  //                             child: BackdropFilter(
-  //                                 filter: isHover
-  //                                     ? ImageFilter.blur(sigmaX: 10, sigmaY: 10)
-  //                                     : ImageFilter.blur(
-  //                                         sigmaX: 0.1, sigmaY: 0.1),
-  //                                 child: isHover
-  //                                     ? _fileDetailView(
-  //                                         size,
-  //                                         snapshot.data!['name'],
-  //                                       )
-  //                                     : null),
-  //                           )
-  //                         : _fileDetailView(size, snapshot.data!['name']),
-  //                   ),
-  //                   Positioned(
-  //                     right: 0.0,
-  //                     child: InkWell(
-  //                       hoverColor: Colors.transparent,
-  //                       splashColor: Colors.transparent,
-  //                       highlightColor: Colors.transparent,
-  //                       onTap: () {
-  //                         isExcelFile = false;
-  //                         List<XFile> tempList = _filesList.toList();
-  //                         tempList.removeAt(fileData.indexOf(e));
-  //                         _filesList = tempList;
-  //                         _formUploadFileBloc
-  //                             .add(FormUploadFileEvent.addFile(_filesList));
-  //                       },
-  //                       child: Container(
-  //                         padding: const EdgeInsets.all(4.0),
-  //                         decoration: const BoxDecoration(
-  //                           shape: BoxShape.circle,
-  //                         ),
-  //                         child: const SvgIcon(
-  //                           icon: IconlyBroken.closeSquare,
-  //                           size: 14.0,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               );
-  //             });
-  //           },
-  //         );
-  //       },
-  //     ).toList(),
-  //   );
-  // }
-
-  // Widget _fileDetailView(String size, String name) {
-  //   return Column(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       Container(
-  //         padding: const EdgeInsets.symmetric(
-  //           horizontal: 6.4,
-  //         ),
-  //         color: ColorConst.white.withOpacity(0.4),
-  //         child: Text(
-  //           size,
-  //           style: const TextStyle(
-  //             fontSize: 17,
-  //             fontWeight: FontWeight.w500,
-  //             color: ColorConst.black,
-  //           ),
-  //         ),
-  //       ),
-  //       FxBox.h12,
-  //       Container(
-  //         margin: const EdgeInsets.symmetric(
-  //           horizontal: 13.0,
-  //         ),
-  //         padding: const EdgeInsets.symmetric(
-  //           horizontal: 5.2,
-  //         ),
-  //         color: ColorConst.white.withOpacity(0.4),
-  //         child: Text(
-  //           name,
-  //           overflow: TextOverflow.ellipsis,
-  //           style: const TextStyle(
-  //             fontSize: 14,
-  //             color: ColorConst.black,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  // Future<void> _dropFile(XFile files) async {
-  //   isExcelFile = false;
-  //   _filesList.clear();
-
-  //   await _fileData(files);
-  //   _filesList.add(files);
-
-  //   bytes = await files.readAsBytes();
-  //   if (files.path.split('.').last == 'xlsx') {
-  //     isExcelFile = true;
-
-  //     _formUploadFileBloc.add(FormUploadFileEvent.addFile(_filesList));
-  //   }
-  // }
-
-  // Future<Map<String, dynamic>> _fileData(XFile file) async {
-  //   return {
-  //     'name': file.path.split('/').last,
-  //     'size': await _getFileSize(file),
-  //     'mime': lookupMimeType(file.path),
-  //     'bytes': await file.readAsBytes(),
-  //   };
-  // }
-
-  // Future<String> _getFileSize(XFile file) async {
-  //   if (await file.length() / 1024 <= 1000) {
-  //     return '${(await file.length() / 1024).toStringAsFixed(2)} KB';
-  //   } else {
-  //     return '${((await file.length() / 1024) / 1024).toStringAsFixed(2)} MB';
-  //   }
-  // }
 
   Widget _categoryDropDown() {
     return DropdownButtonFormField(
@@ -553,6 +335,50 @@ class _ProductAddState extends State<ProductAdd> {
           return DropdownMenuItem(
             value: e,
             child: Text(e['category'].toString()),
+          );
+        },
+      ).toList(),
+    );
+  }
+
+  Widget _venderDropDown() {
+    return DropdownButtonFormField(
+      hint: const Text(
+        'Select Vendor',
+        style: TextStyle(
+          color: ColorConst.black,
+        ),
+      ),
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.all(12.0),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: !isDark
+                ? ColorConst.black
+                : ColorConst.white.withOpacity(
+                    0.5,
+                  ),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color:
+                !isDark ? ColorConst.black : ColorConst.white.withOpacity(0.5),
+          ),
+        ),
+      ),
+      onChanged: (value) {
+        _venderSelected.value = value;
+        // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+        _venderSelected.notifyListeners();
+      },
+      items: _vendorName.map<DropdownMenuItem>(
+        (e) {
+          return DropdownMenuItem(
+            value: e,
+            child: Text(e.toString()),
           );
         },
       ).toList(),
@@ -624,6 +450,7 @@ class ProductModel {
   int id;
   String product;
   String category;
+  String vendor;
   String expiryDate;
   int unit;
 
@@ -631,6 +458,7 @@ class ProductModel {
       {required this.id,
       required this.product,
       required this.category,
+      required this.vendor,
       required this.expiryDate,
       required this.unit});
 }
