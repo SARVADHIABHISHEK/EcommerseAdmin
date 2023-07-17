@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterx/flutterx.dart';
 
+enum SampleItem { itemOne, itemTwo, itemThree }
+
 @RoutePage()
 class ProductAdd extends StatefulWidget {
   const ProductAdd({super.key});
@@ -36,6 +38,8 @@ class _ProductAddState extends State<ProductAdd> {
   final ValueNotifier<String> _venderSelected = ValueNotifier('');
 
   String typeOfProduct = 'Feature Product';
+
+  SampleItem? selectedMenu;
 
   final List<ProductModel> _productItem = [
     ProductModel(
@@ -71,55 +75,122 @@ class _ProductAddState extends State<ProductAdd> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          FxButton(
-            onPressed: () {
-              FxModal.showModel(
-                context: context,
-                title: languageModel.eCommerceAdmin.productAdd.trim(),
-                content: _productForm(),
-                trailingIcon: const SvgIcon(icon: IconlyBroken.closeSquare),
-                actions: [
-                  FxButton(
-                    onPressed: () => Navigator.pop(context),
-                    text: Strings.close,
-                    buttonType: ButtonType.secondary,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                height: 40,
+                child: FxButton(
+                  onPressed: () {
+                    FxModal.showModel(
+                      context: context,
+                      title: languageModel.eCommerceAdmin.productAdd.trim(),
+                      content: _productForm(),
+                      trailingIcon:
+                          const SvgIcon(icon: IconlyBroken.closeSquare),
+                      actions: [
+                        FxButton(
+                          onPressed: () => Navigator.pop(context),
+                          text: Strings.close,
+                          buttonType: ButtonType.secondary,
+                        ),
+                        ValueListenableBuilder<String>(
+                          valueListenable: _categorySelected,
+                          builder: (context, value, child) {
+                            return FxButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+
+                                setState(
+                                  () {
+                                    _productItem.add(
+                                      ProductModel(
+                                        id: 3,
+                                        product: _productName.text,
+                                        category: value,
+                                        vendor: _venderSelected.value,
+                                        expiryDate: _expriryDate.text,
+                                        unit: int.parse(_unitStock.text),
+                                      ),
+                                    );
+
+                                    _productName.clear();
+                                    _unitStock.clear();
+                                  },
+                                );
+                              },
+                              text: Strings.saveChange,
+                            );
+                          },
+                        ),
+                      ],
+                      modelType: ModalType.normal,
+                    );
+                  },
+                  icon: const Icon(Icons.add),
+                  text: 'Add New Product',
+                  borderRadius: 4.0,
+                ),
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              SizedBox(
+                width: 200,
+                height: 40,
+                child: DropdownButtonFormField(
+                  hint: const Text(
+                    'Select Category',
+                    style: TextStyle(
+                      color: ColorConst.black,
+                    ),
                   ),
-                  ValueListenableBuilder<String>(
-                    valueListenable: _categorySelected,
-                    builder: (context, value, child) {
-                      return FxButton(
-                        onPressed: () {
-                          Navigator.pop(context);
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(12.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: !isDark
+                            ? ColorConst.black
+                            : ColorConst.white.withOpacity(
+                                0.5,
+                              ),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: !isDark
+                            ? ColorConst.black
+                            : ColorConst.white.withOpacity(0.5),
+                      ),
+                    ),
+                  ),
+                  onChanged: (value) {
+                    print(value);
+                    _categorySelected.value = value['category'];
+                    // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+                    _categorySelected.notifyListeners();
+                    _productItem.removeWhere(
+                      (element) => element.category != _categorySelected.value,
+                    );
 
-                          setState(
-                            () {
-                              _productItem.add(
-                                ProductModel(
-                                  id: 3,
-                                  product: _productName.text,
-                                  category: value,
-                                  vendor: _venderSelected.value,
-                                  expiryDate: _expriryDate.text,
-                                  unit: int.parse(_unitStock.text),
-                                ),
-                              );
-
-                              _productName.clear();
-                              _unitStock.clear();
-                            },
-                          );
-                        },
-                        text: Strings.saveChange,
+                    setState(() {});
+                  },
+                  items: productList.map<DropdownMenuItem>(
+                    (e) {
+                      return DropdownMenuItem(
+                        value: e,
+                        child: Text(e['category'].toString()),
                       );
                     },
-                  ),
-                ],
-                modelType: ModalType.normal,
-              );
-            },
-            icon: const Icon(Icons.add),
-            text: 'Add New Product',
-            borderRadius: 4.0,
+                  ).toList(),
+                ),
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+            ],
           ),
           FxBox.h10,
           Card(
@@ -281,7 +352,7 @@ class _ProductAddState extends State<ProductAdd> {
               ),
             ),
           ],
-        ),  
+        ),
       ],
     );
   }
