@@ -1,11 +1,11 @@
 import 'dart:math';
 import 'package:ecommerse_admin/src/admin/constant/color.dart';
 import 'package:ecommerse_admin/src/admin/constant/icons.dart';
+import 'package:ecommerse_admin/src/admin/constant/image.dart';
 import 'package:ecommerse_admin/src/admin/constant/string.dart';
 import 'package:ecommerse_admin/src/admin/constant/theme.dart';
 import 'package:ecommerse_admin/src/admin/utils/localizaion/multi_language.dart';
 import 'package:ecommerse_admin/src/admin/view/products/product.dart';
-
 import 'package:ecommerse_admin/src/admin/widget/datatable.dart';
 import 'package:ecommerse_admin/src/admin/widget/svg_icon.dart';
 import 'package:ecommerse_admin/src/admin/widget/textformfield.dart';
@@ -15,14 +15,14 @@ import 'package:flutter/services.dart';
 import 'package:flutterx/flutterx.dart';
 
 @RoutePage()
-class ProductAdd extends StatefulWidget {
-  const ProductAdd({super.key});
+class BlogAdd extends StatefulWidget {
+  const BlogAdd({super.key});
 
   @override
-  State<ProductAdd> createState() => _ProductAddState();
+  State<BlogAdd> createState() => _BlogAddState();
 }
 
-class _ProductAddState extends State<ProductAdd> {
+class _BlogAddState extends State<BlogAdd> {
   // final FormUploadFileBloc _formUploadFileBloc = FormUploadFileBloc();
   // late DropzoneViewController _controller;
   // final List<XFile> _filesList = [];
@@ -31,36 +31,38 @@ class _ProductAddState extends State<ProductAdd> {
 
   final TextEditingController _productName = TextEditingController();
   final TextEditingController _expriryDate = TextEditingController();
-  final TextEditingController _unitStock = TextEditingController();
+  final TextEditingController _blogSubjectController = TextEditingController();
   final ValueNotifier<String> _categorySelected = ValueNotifier('');
-  final ValueNotifier<String> _venderSelected = ValueNotifier('');
+  final TextEditingController _blogTextController = TextEditingController();
 
-  String typeOfProduct = 'Feature Product';
+  // final List<BlogAdd> _productItem = [
+  //   BlogAdd(
+  //     id: 1,
+  //     offerInPercentage: 10,
+  //     category: 'mobile',
+  //     expiryDate: '02/10/2024',
+  //   ),
+  //   BlogAdd(
+  //     id: 2,
+  //     offerInPercentage: 10,
+  //     category: 'mobile',
+  //     expiryDate: '02/10/2024',
+  //   ),
+  // ];
 
-  final List<ProductModel> _productItem = [
-    ProductModel(
-      id: 1,
-      product: 'i phone 14',
-      category: 'mobile',
-      vendor: 'Mick M.',
-      expiryDate: '02/10/2024',
-      unit: 2,
-    ),
-    ProductModel(
+  final List<AddBlog> _blogAddModel = [
+    AddBlog(
       id: 2,
-      product: 'samsung galaxy',
-      category: 'mobile',
-      vendor: 'Nick G.',
-      expiryDate: '02/10/2024',
-      unit: 10,
+      image: Images.men,
+      blogSubject: 'Loream Ipusum dummy text',
+      blogText: 'Hello',
     ),
-  ];
-
-  final List<String> _vendorName = [
-    'Marry k.',
-    'Mick M',
-    'Nick G.',
-    'Margo Mirz'
+    AddBlog(
+      id: 3,
+      image: Images.women,
+      blogSubject: 'Loream Ipusum dummy text',
+      blogText: 'Hello',
+    ),
   ];
 
   @override
@@ -93,19 +95,15 @@ class _ProductAddState extends State<ProductAdd> {
 
                           setState(
                             () {
-                              _productItem.add(
-                                ProductModel(
-                                  id: 3,
-                                  product: _productName.text,
-                                  category: value,
-                                  vendor: _venderSelected.value,
-                                  expiryDate: _expriryDate.text,
-                                  unit: int.parse(_unitStock.text),
-                                ),
+                              _blogAddModel.add(
+                                AddBlog(
+                                    id: 3,
+                                    image: Images.men,
+                                    blogSubject: _blogSubjectController.text,
+                                    blogText: _blogTextController.text),
                               );
-
                               _productName.clear();
-                              _unitStock.clear();
+                              _blogSubjectController.clear();
                             },
                           );
                         },
@@ -118,7 +116,7 @@ class _ProductAddState extends State<ProductAdd> {
               );
             },
             icon: const Icon(Icons.add),
-            text: 'Add New Product',
+            text: 'Add New Brand',
             borderRadius: 4.0,
           ),
           FxBox.h10,
@@ -142,12 +140,10 @@ class _ProductAddState extends State<ProductAdd> {
   List<DataColumn> _productColum() {
     List<String> column = [
       languageModel.eCommerceAdmin.id,
-      languageModel.eCommerceAdmin.productName,
-      languageModel.eCommerceAdmin.category,
-      "Vendor",
-      languageModel.eCommerceAdmin.expiryDate,
-      languageModel.eCommerceAdmin.unit,
-      ''
+      'Blog Image',
+      'Blog Subject',
+      'Blog Text',
+      '',
     ];
     return [
       for (int i = 0; i < column.length; i++) ...[
@@ -163,40 +159,35 @@ class _ProductAddState extends State<ProductAdd> {
 
   List<DataRow2> _productRow() {
     return [
-      for (int i = 0; i < _productItem.length; i++) ...[
+      for (int i = 0; i < _blogAddModel.length; i++) ...[
         DataRow2(
           cells: [
-            DataCell(Text(_productItem[i].id.toString())),
-            DataCell(Text(_productItem[i].product)),
-            DataCell(Text(_productItem[i].category)),
-            DataCell(Text(_productItem[i].category)),
-            DataCell(Text(_productItem[i].expiryDate)),
+            DataCell(Text(_blogAddModel[i].id.toString())),
+            DataCell(Image.asset(_blogAddModel[i].image)),
+            DataCell(Text(_blogAddModel[i].blogSubject)),
+            DataCell(Text(_blogAddModel[i].blogText)),
             DataCell(
-              Text(
-                _productItem[i].unit.toString(),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            DataCell(Row(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _productItem.removeWhere(
-                          (element) => element.id == _productItem[i].id);
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.edit),
                   ),
-                )
-              ],
-            ))
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _blogAddModel.removeWhere(
+                            (element) => element.id == _blogAddModel[i].id);
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         )
       ]
@@ -221,11 +212,10 @@ class _ProductAddState extends State<ProductAdd> {
             ),
           ),
         ),
-        FxBox.h10,
-        _formTitle(languageModel.eCommerceAdmin.productName),
+        _formTitle("Blog Subject"),
         FxBox.h6,
         CustomTextField(
-          controller: _productName,
+          controller: _blogSubjectController,
           contentPadding: const EdgeInsets.all(12.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
@@ -234,11 +224,11 @@ class _ProductAddState extends State<ProductAdd> {
             borderRadius: BorderRadius.circular(8.0),
           ),
         ),
-        FxBox.h16,
-        _formTitle(languageModel.eCommerceAdmin.description),
+        FxBox.h6,
+        _formTitle('Blog Text'),
         FxBox.h6,
         CustomTextField(
-          maxLines: 6,
+          controller: _blogTextController,
           contentPadding: const EdgeInsets.all(12.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
@@ -247,41 +237,8 @@ class _ProductAddState extends State<ProductAdd> {
             borderRadius: BorderRadius.circular(8.0),
           ),
         ),
-        FxBox.h16,
-        _formTitle(languageModel.eCommerceAdmin.category),
-        FxBox.h6,
-        _categoryDropDown(),
-        FxBox.h16,
-        _formTitle("Select Vendor"),
-        _venderDropDown(),
         FxBox.h16,
         _expiryRow(),
-        Row(
-          children: [
-            Expanded(
-              child: RadioListTile.adaptive(
-                value: 'Feature Product',
-                title: const Text('Feature Product'),
-                groupValue: typeOfProduct,
-                onChanged: (value) {
-                  typeOfProduct = value!;
-                  setState(() {});
-                },
-              ),
-            ),
-            Expanded(
-              child: RadioListTile.adaptive(
-                value: 'Best Selling',
-                title: const Text('Best Selling'),
-                groupValue: typeOfProduct,
-                onChanged: (value) {
-                  typeOfProduct = value!;
-                  setState(() {});
-                },
-              ),
-            ),
-          ],
-        ),  
       ],
     );
   }
@@ -330,50 +287,6 @@ class _ProductAddState extends State<ProductAdd> {
     );
   }
 
-  Widget _venderDropDown() {
-    return DropdownButtonFormField(
-      hint: const Text(
-        'Select Vendor',
-        style: TextStyle(
-          color: ColorConst.black,
-        ),
-      ),
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(12.0),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
-            color: !isDark
-                ? ColorConst.black
-                : ColorConst.white.withOpacity(
-                    0.5,
-                  ),
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
-            color:
-                !isDark ? ColorConst.black : ColorConst.white.withOpacity(0.5),
-          ),
-        ),
-      ),
-      onChanged: (value) {
-        _venderSelected.value = value;
-        // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-        _venderSelected.notifyListeners();
-      },
-      items: _vendorName.map<DropdownMenuItem>(
-        (e) {
-          return DropdownMenuItem(
-            value: e,
-            child: Text(e.toString()),
-          );
-        },
-      ).toList(),
-    );
-  }
-
   Widget _expiryRow() {
     return Row(
       children: [
@@ -401,26 +314,6 @@ class _ProductAddState extends State<ProductAdd> {
             ],
           ),
         ),
-        FxBox.w12,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _formTitle(languageModel.eCommerceAdmin.unitsInStock),
-              FxBox.h6,
-              CustomTextField(
-                controller: _unitStock,
-                contentPadding: const EdgeInsets.all(12.0),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-            ],
-          ),
-        )
       ],
     );
   }
@@ -435,21 +328,18 @@ _formTitle(String text) {
 
 //
 
-class ProductModel {
+class AddBlog {
   int id;
-  String product;
-  String category;
-  String vendor;
-  String expiryDate;
-  int unit;
+  String image;
+  String blogSubject;
+  String blogText;
 
-  ProductModel(
-      {required this.id,
-      required this.product,
-      required this.category,
-      required this.vendor,
-      required this.expiryDate,
-      required this.unit});
+  AddBlog({
+    required this.id,
+    required this.image,
+    required this.blogSubject,
+    required this.blogText,
+  });
 }
 
 class CustomDateTextFormatter extends TextInputFormatter {

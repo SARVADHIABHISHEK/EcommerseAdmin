@@ -20,6 +20,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(path: 'productAdd', page: ProductAdd.page),
         AutoRoute(path: 'brandAdd', page: BrandAdd.page),
         AutoRoute(path: 'manageBannerView', page: BannerView.page),
+        AutoRoute(path: 'blogAdd', page: BlogAdd.page),
         AutoRoute(path: 'addOfferOnBrands', page: OfferOnBrands.page),
         AutoRoute(path: 'products/products-detail', page: ProductDetailScreen.page),
         AutoRoute(path: 'category', page: CategoryScreen.page),
